@@ -1,0 +1,26 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:12.6
+    container_name: wisdom_postgres
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    volumes:
+      - ./volumes/postgres/data:/var/lib/postgresql/data
+      - ./startup_scripts/init_db.sh:/docker-entrypoint-initdb.d/init_db.sh
+    networks:
+      - wisdom_network
+    ports:
+      - 25432:5432
+    logging:
+      driver: json-file
+      options:
+        max-size: "3m"
+        max-file: "1"
+
+networks:
+  wisdom_network:
+    name: wisdom_network

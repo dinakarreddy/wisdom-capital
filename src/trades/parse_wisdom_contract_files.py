@@ -1,36 +1,7 @@
 import csv
-import logging.config
-from datetime import datetime
-
-LOG_CONFIG = {
-    'version': 1,
-    'disable_existing_loggers': True,
-    'formatters': {
-        'verbose': {
-            'format': "[%(asctime)s] %(levelname)s [%(name)s: %(funcName)s: %(lineno)s] %(message)s",
-            'datefmt': "%d/%b/%Y %H:%M:%S"
-        },
-    },
-    'handlers': {
-        'console': {
-            'level': 'INFO',
-            'class': 'logging.StreamHandler',
-            'formatter': 'verbose'
-        },
-    },
-    'loggers': {
-        '': {
-            'handlers': ['console'],
-            'level': 'INFO',
-            'propagate': False,
-        },
-    }
-}
-
-logging.config.dictConfig(LOG_CONFIG)
-
 import logging
 import os
+from datetime import datetime
 
 from bs4 import BeautifulSoup
 
@@ -50,7 +21,7 @@ def process_transactions(transactions_html):
             continue
         temp = []
         transaction_child_columns = [x for x in transactions_child.children]
-        if transaction_child_columns not in (['NCL F&O'],):
+        if transaction_child_columns not in (['NCL F&O'], ['NCL CM']):
             for column in transaction_child_columns:
                 if column == '\n':
                     continue

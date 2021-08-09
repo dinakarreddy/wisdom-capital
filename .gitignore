@@ -131,3 +131,6 @@ dmypy.json
 contracts
 transactions.csv
 charges.csv
+
+.DS_Store
+.idea/
